@@ -1,0 +1,135 @@
+:root {
+	--main-font: 'Courier New', Courier, monospace;
+}
+
+body {
+	font-style: italic;
+	font-weight: bold;
+	font-family: var(--main-font);
+
+	& .basic-div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background-color: lightcoral;
+
+		& h2 {
+			display: none;
+			align-self: flex-start;
+			margin-left: 5px;
+
+			font-size: medium;
+
+			& a {
+				background-color: antiquewhite;
+				color: black;
+				text-decoration: none;
+			}
+		}
+
+		& .main-div {
+			display: flex;
+			flex-direction: column;
+			background-color: lightskyblue;
+
+			& aside {
+				display: flex;
+				flex-direction: column;
+				background-color: cadetblue;
+
+				& h1 {
+					align-self: flex-start;
+					margin-left: 15px;
+
+					font-size: larger;
+
+					& a {
+						background-color: thistle;
+						color: black;
+						text-decoration: none;
+					}
+				}
+
+				& .theme {
+					align-self: flex-end;
+					background-color: chocolate;
+				}
+
+				& .accesibility {
+					display: flex;
+					align-self: flex-end;
+					align-items: center;
+					margin-right: 5px;
+					margin-top: 10px;
+
+					font-size: 25px;
+					background-color: cornflowerblue;
+				}
+
+			}
+
+			& nav {
+				display: flex;
+				justify-content: center;
+				background-color: rgb(0, 84, 84);
+
+				& ul {
+					list-style: none;
+				}
+
+				& ul li a {
+					color: black;
+					text-decoration: none;
+				}
+			}
+
+			& main{
+				display: flex;
+				flex-direction: column;
+				background-color: darkgreen;
+
+				& .logo {
+					display: flex;
+					justify-content: center;
+					background-color: grey;
+					
+					& img {
+						width: clamp(150px, 50vw, 400px);
+					}
+				}
+
+				& article {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					text-align: center;
+
+					& h3 {
+						background-color: silver;
+					}
+
+					color: red;
+				}
+			}
+		}
+
+		& details {
+			margin-top: 15px;
+			background-color: sienna;
+
+			& summary {
+				background-color: khaki;
+			}
+		}
+	}
+}
+
+@media(min-width: 350px){
+	body {
+		& .basic-div {
+			& h2 {
+				display: block;
+			}
+		}
+	}
+}
