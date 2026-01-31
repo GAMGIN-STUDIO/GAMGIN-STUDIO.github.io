@@ -2,6 +2,21 @@
 	--main-font: 'Courier New', Courier, monospace;
 }
 
+@keyframes show {
+	0% {
+		background-color: #0000d5ff;
+		color: black;
+	}
+	50% {
+		background-color: purple;
+		color: white;
+	}
+	100% {
+		background-color: transparent;
+		color: black;
+	}
+}
+
 body {
 	font-style: italic;
 	font-weight: bold;
@@ -153,10 +168,10 @@ body {
 						purple 0%,
 						transparent 50%
 					);
-					filter: drop-shadow(1px 1px 1px black);
 					
 					& img {
 						width: clamp(150px, 40vw, 400px);
+						filter: drop-shadow(1px 1px 1px black);
 					}
 				}
 
@@ -179,24 +194,55 @@ body {
 			}
 		}
 
-		& details {
+		& .summary {
+			cursor: pointer;
+			display: flex;
+			justify-content: center;
+			margin-bottom: 10px;
+			background-color: transparent;
+		}
+
+		& .summary.opened {
+			pointer-events: none;
+		}
+
+		& .summary.dark {
+			color: purple;
+		}
+
+		& .details{
 			display: flex;
 			flex-direction: column;
 			width: clamp(150px, 80vw, 1500px);
 			margin-top: 15px;
+			background-color: transparent;
+			color: transparent;
 
-			& summary {
-				display: flex;
-				justify-content: center;
-				margin-bottom: 10px;
+			& .word {
+				color: transparent;
+				background-color: transparent;
 			}
 		}
 
-		& details.dark {
-			color: grey;
-			& summary {
-				color: purple;
+		& .details.opened {
+			cursor: pointer;
+
+			& .word {
+				animation: show 1s ease-in-out forwards;
+				transition: all 1s ease-in-out;
 			}
+
+			& .word.close {
+				opacity: 0;
+			}
+		}
+
+		& .details.closing {
+			pointer-events: none;
+		}
+
+		& .details.dark {
+			color: grey;
 		}
 	}
 }
@@ -215,7 +261,7 @@ body.dark {
 	background-color: black;
 }
 
-/* for parcticles */
+/* canvas styles for parcticles effect */
 .background {
   position: absolute;
   display: block;
