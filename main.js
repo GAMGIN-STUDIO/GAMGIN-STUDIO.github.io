@@ -17,8 +17,8 @@ themeBut.addEventListener('click', () => {
 	themeBut.classList.toggle('dark');
 	document.querySelector('.accessibility').classList.toggle('dark');
 	document.querySelector('article').classList.toggle('dark');
-	document.querySelector('.details').classList.toggle('dark');
 	document.querySelector('.summary').classList.toggle('dark');
+	document.querySelector('.details').classList.toggle('dark');
 });
 
 function randomNumber(min, max) {
@@ -36,35 +36,27 @@ function transformDetails() {
 		item.innerHTML = spanArray.join(' ');
 		document.querySelector('.details').children[key].innerHTML = item.innerHTML;
 	}
-	for(const span of document.querySelectorAll('.details span')) {
-		span.classList.add('word');
+	for(const span of document.querySelectorAll('.details p span')) {
 		span.style.animationDelay = `${randomNumber(0,1000)}ms`;
-		span.style.transitionDelay = `${randomNumber(0, 1000)}ms`;
 	}
 };
 transformDetails();
 
 const summary = document.querySelector('.summary');
+const details = document.querySelector('.details');
 summary.addEventListener('click', () => {
-	const details = document.querySelector('.details');
 	summary.classList.add('opened');
 	details.classList.add('opened');
+	for(const span of document.querySelectorAll('.details p span')) {
+		span.classList.remove('close');
+		span.classList.add('word');
+	};	
 });
-
-const details = document.querySelector('.details');
 details.addEventListener('click', () => {
-		details.classList.add('closing');
+		summary.classList.remove('opened');
+		details.classList.remove('opened');
 		for(const span of document.querySelectorAll('.word')) {
 			span.classList.add('close');
+			span.style.animationDelay = `${randomNumber(0, 1000)}ms`;
 		}
-		setTimeout(() => {
-			details.classList.remove('opened');
-			summary.classList.remove('opened');
-			for(const span of document.querySelectorAll('.word')) {
-				span.classList.remove('close');
-				span.style.animationDelay = `${randomNumber(0, 1000)}ms`;
-				span.style.transitionDelay = `${randomNumber(0, 1000)}ms`;
-			}
-			details.classList.remove('closing');
-		}, 2000);
 });

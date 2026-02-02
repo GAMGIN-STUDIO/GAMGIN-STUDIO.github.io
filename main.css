@@ -13,7 +13,17 @@
 	}
 	100% {
 		background-color: transparent;
-		color: black;
+		color: grey;
+	}
+}
+
+@keyframes close {
+	from {
+		background-color: purple;
+	}
+	to {
+		color: transparent;
+		background-color: transparent;
 	}
 }
 
@@ -192,57 +202,54 @@ body {
 					}
 				}
 			}
-		}
 
-		& .summary {
-			cursor: pointer;
-			display: flex;
-			justify-content: center;
-			margin-bottom: 10px;
-			background-color: transparent;
-		}
+			& .summary {
+				cursor: pointer;
+				display: flex;
+				justify-content: center;
+				transition: color 1.5s ease-in-out;
+				margin: 10px 0px;
+			}
 
-		& .summary.opened {
-			pointer-events: none;
-		}
-
-		& .summary.dark {
-			color: purple;
-		}
-
-		& .details{
-			display: flex;
-			flex-direction: column;
-			width: clamp(150px, 80vw, 1500px);
-			margin-top: 15px;
-			background-color: transparent;
-			color: transparent;
-
-			& .word {
+			& .summary.opened {
+				pointer-events: none;
 				color: transparent;
-				background-color: transparent;
-			}
-		}
-
-		& .details.opened {
-			cursor: pointer;
-
-			& .word {
-				animation: show 1s ease-in-out forwards;
-				transition: all 1s ease-in-out;
 			}
 
-			& .word.close {
-				opacity: 0;
+			& .summary.dark {
+				color: purple;
 			}
-		}
 
-		& .details.closing {
-			pointer-events: none;
-		}
+			& .summary.opened.dark {
+				color: transparent;
+			}
 
-		& .details.dark {
-			color: grey;
+			& .details {
+				display: flex;
+				flex-direction: column;
+				pointer-events: none;
+				padding: 0px 20px;
+				
+				& p {
+					color: transparent;
+					background-color: transparent;
+					margin: 5px 0px;
+				}
+
+				& p span.word {
+					animation: show 1s ease-in-out forwards;
+				}
+
+				& p span.word.close {
+					color: grey;
+					animation: close 0.5s ease-in-out forwards;
+				}
+			}
+
+			& .details.opened {
+				cursor: pointer;
+				pointer-events: all;
+			}
 		}
 	}
 }
