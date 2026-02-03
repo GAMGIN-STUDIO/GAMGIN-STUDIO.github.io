@@ -10,7 +10,7 @@ function loadPage(page) {
 }
 
 // initial load
-loadPage('home');
+loadPage('projects');
 
 document.addEventListener('click', (e) => {
 	if(e.target.matches('li[data-page]')) {
@@ -43,7 +43,6 @@ function checkPage() {
 	const second = document.querySelector('.second') ?? undefined;
 	if(first !== undefined && second !== undefined) {
 		transformDetails();
-
 		const summary = document.querySelector('.summary');
 		const details = document.querySelector('.details');
 		summary.addEventListener('click', () => {
