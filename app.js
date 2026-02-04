@@ -1,7 +1,16 @@
 async function load(url, target) {
 	const response = await fetch(url); // path to the correct html file
 	target.innerHTML = await response.text();
-
+	if(url === 'pages/projects.html'){
+		const browserTemplates = document.querySelectorAll('#browser-header') ?? undefined;
+		if (browserTemplates !== undefined){
+			const response = await fetch('browser-template/browser-header.html');
+			readyResToHTHML = await response.text();
+			for(const browserTemplate of browserTemplates){
+ 				browserTemplate.innerHTML = readyResToHTHML;
+			}
+		}
+	}
 	checkPage(); // now the dynamic DOM exists
 }
 
@@ -10,7 +19,7 @@ function loadPage(page) {
 }
 
 // initial load
-loadPage('projects');
+loadPage('home');
 
 document.addEventListener('click', (e) => {
 	if(e.target.matches('li[data-page]')) {
