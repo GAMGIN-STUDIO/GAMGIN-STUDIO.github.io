@@ -537,19 +537,19 @@ body.dark {
 						}
 
 						& a#dosing:hover::after {
-							content: 'A\00A0simple medicine dosing calculator converting dosage data into\00A0micrograms per\00A0minute per\00A0kilogram of\00A0patient body weight. Recent results are stored locally.';
+							content: 'A simple medicine dosing calculator converting dosage data into micrograms per minute per kilogram of patient body weight. Recent results are stored locally.';
 						}
 
 						& a#to-do:hover::after {
-							content: 'A\00A0small to-do app for creating and\00A0managing tasks. Users can select, edit, or\00A0delete individual items and download the to-do list\00A0as a\00A0screenshot.';
+							content: 'A small to-do app for creating and managing tasks. Users can select, edit, or delete individual items and download the to-do list as a screenshot.';
 						}
 
 						& a#duhacek:hover::after {
-							content: 'This project was a\00A0collaboration with Lucie Bílková, a\00A0key member of\00A0the non-profit organization Duháček. The\00A0website represents the\00A0organization’s activities and\00A0facilities.';
+							content: 'This project was a collaboration with Lucie Bílková, a key member of the non-profit organization Duháček. The website represents the organization’s activities and facilities.';
 						}
 
 						& a#good-coffee:hover::after {
-							content: 'Good Café is a\00A0fictional educational website that\00A0demonstrates the\00A0basics o\00A0web development using HTML, CSS, JavaScript, PHP, and\00A0MySQL.';
+							content: 'Good Café is a fictional educational website that demonstrates the basics of web development using HTML, CSS, JavaScript, PHP, and MySQL.';
 						}
 					}
 				}

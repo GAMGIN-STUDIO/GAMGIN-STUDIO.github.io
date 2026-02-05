@@ -19,7 +19,7 @@ function loadPage(page) {
 }
 
 // initial load
-loadPage('home');
+loadPage('contact');
 
 document.addEventListener('click', (e) => {
 	if(e.target.matches('li[data-page]')) {
