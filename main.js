@@ -20,4 +20,5 @@ themeBut.addEventListener('click', () => {
 	document.querySelector('.summary').classList.toggle('dark');
 	document.querySelector('.details').classList.toggle('dark');
 	document.querySelector('footer').classList.toggle('dark');
+	document.querySelector('main').classList.toggle('dark');
 });

@@ -1,5 +1,19 @@
-:root {
-	--main-font: 'Courier New', Courier, monospace;
+/* audiowide-regular - latin_latin-ext */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Audiowide';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/audiowide-v22-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* black-ops-one-regular - latin_latin-ext */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Black Ops One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/black-ops-one-v21-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 @keyframes show {
@@ -30,7 +44,7 @@
 body {
 	font-style: italic;
 	font-weight: bold;
-	font-family: var(--main-font);
+	font-family: "Audiowide";
 	margin: 0px;
 	padding: 0px;
 
@@ -111,12 +125,10 @@ body {
 						align-self: flex-end;
 						margin-right: 5px;
 						padding: 5px;
-						padding-bottom: 0px;
 
 						background-color: rgb(0, 0, 0);
 						border-radius: 5px;
-						color: white; /* logo color */
-						font-family: fantasy;
+						color: white;
 					}
 
 					& .theme.dark {
@@ -210,6 +222,57 @@ body {
 
 						& h3.article-header {
 							margin-top: 40px;
+						}
+					}
+					
+					& article.contact {
+						padding-right: 30px;
+						padding-left: 30px;
+
+						& ul {
+							display: flex;
+							flex-direction: column;
+							align-items: flex-start;
+							list-style: disc;
+							list-style-position: inside;
+							padding: 15px;
+							margin: 0px;
+							margin-top: 15px;
+							border: 5px solid purple;
+							border-radius: 8px;
+							filter: drop-shadow(2px 2px 2px black);
+
+							& li {
+								margin: 2px 0px;
+
+								& a {
+									color: purple;
+									text-decoration: none;
+									& i.fa-github {
+										color: #181717;
+									}
+									& i.fa-youtube {
+										color: #ff0000;
+									}
+								}
+							
+								& span.at {
+									font-family: 'Black Ops One';
+								}
+
+							}
+						}
+					}
+
+					& article.contact.dark {
+						& ul {
+							& li {
+								& a {
+									& i.fa-github {
+										color: gray;
+									}
+								}
+							}
 						}
 					}
 
@@ -384,6 +447,190 @@ body {
 					}
 				}
 
+				& .middle.contact {
+					padding: 0px 30px;
+
+					& p {
+						margin-top: 40px;
+						margin-bottom: 30px;
+					}
+
+					& form {
+						position: relative;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						text-align: center;
+						padding: 20px;
+						width: clamp(200px, 40vw, 800px);
+						filter: drop-shadow(1px 1px 1px black);
+
+						/* name and subject styles */
+
+						& input, & input:placeholder-shown, & input:focus {
+							margin: 4px 0px;
+							width: 70%;
+							padding: 5px;
+							border: 2px solid purple;
+							border-radius: 5px;
+							outline: none;
+							resize: none;
+							background: transparent;
+							color: gray;
+							font-family: 'Black Ops One';		
+							transition: border-color 0.1s ease;
+						}
+
+						& input:focus {
+							border-color: rgba(128, 0, 128, 0.1);
+						}
+
+						& input:hover {
+							border-color: rgba(128, 0, 128, 0.5);
+						}
+
+						& input::placeholder {
+							color: gray;
+							font-family: 'Black Ops One';		
+						}
+
+						& input:valid {
+							border-color: rgba(128, 0, 128, 0.1);
+						}
+
+						/* input autofill damage elimination */
+						
+						input:-webkit-autofill {
+							transition: all 5000s ease-in;
+						}
+
+						/* message styles */					
+
+						& label#message{
+							margin-top: 15px;
+							margin-bottom: 15px;
+							width: 80%;
+							color: purple;
+						}				
+
+						& textarea, & textarea:placeholder-shown, & textarea:focus {
+							width: 80%;
+							height: 200px;
+							padding: 10px;							
+							border: none;
+							border-radius: 5px;
+							outline: 4px solid purple;
+							outline-offset: 6px;
+							resize: none;
+							background: rgba(128, 0, 128, 0.1);
+							color: gray;
+							font-family: 'Black Ops One';								
+						}
+
+						& textarea:focus {
+							outline-color: rgba(128, 0, 128, 0.1);
+						}
+						
+						& textarea:hover {
+							outline-color: rgba(128, 0, 128, 0.4);
+						}
+
+						& textarea::placeholder {
+							color: purple;
+							font-family: 'Black Ops One';							
+						}
+
+						& textarea:valid {
+							outline-color: rgba(128, 0, 128, 0.1);
+						}						
+
+						/* response and salutation preference styles */
+
+						& select {
+							cursor: pointer;
+							margin: 4px 0px;
+							width: 50%;
+							padding: 5px;
+							border: 2px solid purple;
+							border-radius: 5px;
+							outline: none;
+							resize: none;
+							background: transparent;
+							color: gray;				
+							font-family: 'Black Ops One';					
+						}
+
+						& select:focus {
+							border-color: rgba(128, 0, 128, 0.1);
+						}
+
+						& select:hover {
+							border-color: rgba(128, 0, 128, 0.5);
+						}
+
+						& select[name=response] {
+							margin-top: 20px;
+						}
+
+						& select:valid {
+							border-color: rgba(128, 0, 128, 0.1);
+						}
+
+						/* privacy & policy styles */
+
+						& input[type=checkbox] {
+							width: initial;
+							accent-color: plum;
+						}
+
+						& label#privacy-policy {
+							cursor: pointer;
+							margin-top: 25px;
+							width: 100%;
+							color: black;
+						}
+
+						/* button styles */
+
+						& button {
+							cursor: pointer;
+							margin-top: 30px;
+						}
+					}
+
+					& form::after {
+						content: "";
+						position: absolute;
+						top: -5px; left: -5px; right: -5px; bottom: -5px;
+						border: 10px dashed purple;
+						border-radius: 8px;
+						filter: drop-shadow(2px 2px 2px black);
+						z-index: -1;
+
+					}
+
+					& .links {
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+						margin-top: 50px;
+						
+						& p {
+							margin: 0px;
+							margin-top: 5px;
+
+							& a {
+								color: purple;
+								text-decoration: none;
+							}
+						}
+
+						& p:first-child {
+							margin-top: 30px;
+						}
+					}
+				}
+
 				& .second {
 					display: flex;
 					flex-direction: column;
@@ -436,6 +683,45 @@ body {
 					& .details.opened {
 						cursor: pointer;
 						pointer-events: all;
+					}
+				}
+			}
+
+			/* just for unstable elements of dynamic content  */
+			& main.dark {
+				& .middle.contact {
+
+					& p {
+						color: grey;
+					}
+
+					& form {
+
+						& label#privacy-policy {
+							color: grey;
+						}
+
+						& input, & input:placeholder-shown, & input:focus {
+							color: white;
+						}
+
+						& input::placeholder {
+							color: white;
+						}
+
+						& textarea, & textarea:placeholder-shown, & textarea:focus {
+							color: white;
+						}
+
+						& textarea::placeholder {
+							color: white;
+						}
+
+						& select {
+							color: white;	
+						}						
+
+						filter: drop-shadow(2px 2px 2px black);
 					}
 				}
 			}
@@ -551,6 +837,10 @@ body.dark {
 						& a#good-coffee:hover::after {
 							content: 'Good Café is a fictional educational website that demonstrates the basics of web development using HTML, CSS, JavaScript, PHP, and MySQL.';
 						}
+
+						& a#valentine:hover::after {
+							content: 'It’s a tiny little project made just for Valentine’s Day :D. You can grab it from my GitHub and use it to put a smile on your partner’s face!';
+						}
 					}
 				}
 			}
@@ -605,6 +895,7 @@ body.dark {
 						& .logo {
 							flex-grow: 1;
 						}
+
 						& article {
 							flex-grow: 2;
 							padding-right: 60px;
@@ -612,6 +903,11 @@ body.dark {
 							& h3.article-header {
 								margin: 20px 0px;
 							}
+						}
+
+						& article.contact {
+							padding-right: 30px;
+							padding-left: 30px;
 						}
 
 						& article.not-img {
