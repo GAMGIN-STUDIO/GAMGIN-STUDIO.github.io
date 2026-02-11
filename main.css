@@ -1,21 +1,3 @@
-/* audiowide-regular - latin_latin-ext */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'Audiowide';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/audiowide-v22-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* black-ops-one-regular - latin_latin-ext */
-@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'Black Ops One';
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/black-ops-one-v21-latin_latin-ext-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
 @keyframes show {
 	0% {
 		background-color: purple;
@@ -602,11 +584,10 @@ body {
 						content: "";
 						position: absolute;
 						top: -5px; left: -5px; right: -5px; bottom: -5px;
-						border: 10px dashed purple;
+						border: 2px dashed purple;
 						border-radius: 8px;
 						filter: drop-shadow(2px 2px 2px black);
 						z-index: -1;
-
 					}
 
 					& .links {
@@ -765,6 +746,76 @@ body.dark {
   z-index: -1;
 }
 
+/* correction - just for safari browser */
+body.safari { 
+	font-family: 'Montserrat Alternates';
+	font-weight: 600;
+	font-style: italic;
+
+	& .basic-div { 
+		& .main-div { 
+			& main { 
+
+				& .first { 
+					& article.contact { 
+
+						& ul { 
+							filter: none;
+
+							& li {
+
+								& span.at {
+									font-family: 'Montserrat Alternates';
+								}
+							}
+						}
+					}
+				}
+
+				& .middle {
+					& a.card-project {
+						& .project {
+							& #browser-header {
+								& .browser { 
+									filter: none;
+								}
+								& .browser::after {
+									content: none;
+								}
+							}
+							& img {
+								filter: none;
+							}
+						}	
+					}
+				}
+
+				& .middle.contact {
+					& form {
+						filter: none;
+
+						& select {
+							height: 5ex;
+						}
+					}
+					& form::after {
+						filter: none;
+					}
+				}
+			}
+
+			& main.dark {
+				& .middle.contact {
+					& form {
+						filter: none;
+					}
+				}
+			}
+		}
+	}
+}
+
+
 @keyframes textBlow {
 	35% {
 		color: transparent;
@@ -803,6 +854,7 @@ body.dark {
 							width: 0%;
 							height: 0%;
 							transform: translateY(-50%) translateX(-50%);
+							color: transparent;
 							background-color: rgba(100, 100, 100, 0.7);
 							border-radius: clamp(10px, 3vw, 20px);
 							backdrop-filter: blur(2px);
@@ -815,7 +867,6 @@ body.dark {
 							width: clamp(100px + 30px, 50vw + 30px, 650px + 30px);
 							height: 50%;
 							transform: translateY(-50%);
-							color: transparent;
 							font-size: clamp(9px, 2vw, 25px);
 							box-sizing: border-box;
 							padding: clamp(10px, 2vw, 40px);

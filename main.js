@@ -1,3 +1,10 @@
+/* user agent detection cause of safari bugs elimination */
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+if (isSafari) {
+  document.querySelector('body').classList.add("safari");
+}
+
+/* particles load */
 window.onload = function () {
   Particles.init({
     selector: '.background',
@@ -10,6 +17,8 @@ window.onload = function () {
   });
 };
 
+
+/* theme button */
 const themeBut = document.querySelector('.theme');
 themeBut.addEventListener('click', () => {
 	document.body.classList.toggle('dark');
