@@ -17,7 +17,9 @@
 
 	<p>Form bellow helps you to create email to contact me, if you want. </p>
 
-	<form>
+	<form id="form-I" data-lang="en" >
+
+		<div id="form-I-lang" class="lang">cs</div>
 
 		<select name="salutation" required>
 			<option value="" disabled selected>SALUTATION</option>						
@@ -30,8 +32,12 @@
 
 		<input type="text" name="subject" required placeholder="SUBJECT OF MESSAGE">
 
-		<label id="message" for="message-input">Message:</label>
-		<textarea id="message-input" name="message" required placeholder="I want to ask about.."></textarea>
+		<div class="message">
+			<div class="hello">Hello,</div>
+			<label id="message" for="message-input">Message:</label>
+			<textarea id="message-input" name="message" required placeholder="I want to ask you about.."></textarea>
+			<div class="regards"></div>
+		</div>
 
 		<select name="response" required>
 			<option value="" disabled selected>Contact method</option>			
@@ -42,11 +48,11 @@
 	
 		<label id="privacy-policy">
 			<input type="checkbox" name="privacy-policy" required>
-			I agree to&nbsp;the&nbsp;processing of&nbsp;my personal data for&nbsp;the&nbsp;purpose of&nbsp;responding to&nbsp;my inquiry,
-			in&nbsp;accordance with&nbsp;the&nbsp;Privacy Policy of&nbsp;this website.
+			<span id="pp-content">I agree to&nbsp;the&nbsp;processing of&nbsp;my personal data for&nbsp;the&nbsp;purpose of&nbsp;responding to&nbsp;my inquiry,
+			in&nbsp;accordance with&nbsp;the&nbsp;Privacy Policy of&nbsp;this website.</span>
 		</label>
 
-		<button>Send e-mail</button>
+		<button id="form-I-but">Send e-mail</button>
 
 	</form>
 

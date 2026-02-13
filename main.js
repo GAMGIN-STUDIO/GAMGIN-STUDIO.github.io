@@ -1,5 +1,7 @@
 /* user agent detection cause of safari bugs elimination */
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const ua = navigator.userAgent;
+const isIOS = /iPad|iPhone|iPod/.test(ua); // that is no more need - just example
+const isSafari = /^((?!chrome|android|crios|fxios|edgios|opios).)*safari/i.test(ua);
 if (isSafari) {
   document.querySelector('body').classList.add("safari");
 }
