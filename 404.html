@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="./main.css">
 	<!-- font awesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<title>GAMGIN</title>
+	<title>404</title>
 </head>
 <body>
 	<div class="basic-div">
@@ -20,18 +20,12 @@
 			<header>
 				<aside>
 					<h1><a href="https://gamgin.net" rel="noopener noreferrer">GAMGIN STUDIO</a></h1>
-					<span class="theme">Theme</span>
-					<span class="accessibility" alt="accessibility"><i class="fa-solid fa-universal-access"></i></span>
 				</aside>
 				<nav>	
-					<ul>
-						<li data-page="about">Resumé</li>
-						<li data-page="projects">Projects</li>
-						<li data-page="contact">Contact</li>
-					</ul>
 				</nav>
 			</header>
-			<main id="app">
+			<main class="not-found">
+				<h2>404 NOT FOUND</h2>
 			</main>
 		</div> <!-- main-div -->
 		<footer>
@@ -43,7 +37,10 @@
 	<canvas class="background"></canvas>
   	<script src="./vendor/particles/particles.min.js"></script>
 	<script src="./particles.js"></script>
-	<script src="./app.js"></script>
-	<script src="./main.js"></script>
+	<script>
+		const path = location.pathname;
+		sessionStorage.setItem('redirect', path);
+		location.replace('/');
+	</script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+// main app funcitons
 async function load(url, target) {
 	const response = await fetch(url); // path to the correct html file
 	target.innerHTML = await response.text();
@@ -6,20 +7,32 @@ async function load(url, target) {
 	await projectsHeaderFunc(url); // Add browser header onto projects cards
 	contactFormProcessingFunc(url); // Handles contact form processing
 }
-
-function loadPage(page) {
+function loadPage(page, addToHistory = true) {
 	load(`pages/${page}.html`, document.getElementById('app'));
+
+	if (addToHistory) {
+		history.pushState({ page }, '', `/${page}`);
+	}
 }
 
 // initial load
-loadPage('contact');
+const initialPage = location.pathname.replace('/', '') || 'home'; 
+loadPage(initialPage, false); // false cause of initial load is auto saved by browser
 
+// navigation managment
 document.addEventListener('click', (e) => {
 	if(e.target.matches('li[data-page]')) {
 		loadPage(e.target.dataset.page);
 	}
 });
 
+// backwards managment
+window.addEventListener('popstate', (e) => {
+	const page = e.state?.page || 'home'; /* e.state is natively connected with history states */
+	loadPage(page, false);
+});
+
+// other functions
 function randomNumber(min, max) {
 	min = Math.ceil(min);
 	max = Math.floor(max);
@@ -71,9 +84,9 @@ async function projectsHeaderFunc(url) {
 		const browserTemplates = document.querySelectorAll('#browser-header') ?? undefined;
 		if (browserTemplates !== undefined){
 			const response = await fetch('browser-template/browser-header.html');
-			readyResToHTHML = await response.text();
+			readyResToHTML = await response.text();
 			for(const browserTemplate of browserTemplates){
- 				browserTemplate.innerHTML = readyResToHTHML;
+ 				browserTemplate.innerHTML = readyResToHTML;
 			}
 		}
 	}

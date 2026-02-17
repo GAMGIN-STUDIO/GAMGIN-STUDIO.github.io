@@ -1,24 +1,26 @@
+/* redirect from 404 */
+const redirect = sessionStorage.getItem('redirect');
+if (redirect) {
+	sessionStorage.removeItem('redirect');
+	const page = redirect.replace('/', '') || 'home';
+	loadPage(page, false);
+	history.replaceState({ page }, '', redirect);
+} else {
+	const initialPage = location.pathname.replace('/', '') || 'home';
+	loadPage(initialPage, false);
+	history.replaceState({ page: initialPage }, '', location.pathname);
+}
+
 /* user agent detection cause of safari bugs elimination */
 const ua = navigator.userAgent;
-const isIOS = /iPad|iPhone|iPod/.test(ua); // that is no more need - just example
+const isIOS = /iPad|iPhone|iPod/.test(ua);
 const isSafari = /^((?!chrome|android|crios|fxios|edgios|opios).)*safari/i.test(ua);
 if (isSafari) {
   document.querySelector('body').classList.add("safari");
 }
-
-/* particles load */
-window.onload = function () {
-  Particles.init({
-    selector: '.background',
-	 maxParticles: 200,
-	 sizeVariations: 3,
-	 speed: 0.3,
-	 color: '#800080', /* purple */
-	 connectParticles: false,
-	 responsive: null
-  });
-};
-
+if (isIOS) {
+	document.querySelector('body').classList.add("iOS");
+}
 
 /* theme button */
 const themeBut = document.querySelector('.theme');
