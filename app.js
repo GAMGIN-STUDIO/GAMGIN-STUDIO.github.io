@@ -7,38 +7,18 @@ async function load(url, target) {
 	await projectsHeaderFunc(url); // Add browser header onto projects cards
 	contactFormProcessingFunc(url); // Handles contact form processing
 }
-function loadPage(page, addToHistory = true) {
-	const validPages = ['home', 'about', 'projects', 'contact'];
-	// check valid pages
-	if (!validPages.includes(page)) {
-		page = 'home'; // fallback na home
-		history.replaceState({ page }, '', '/'); // změnit URL na root
-	} else if (page !== 'home') {
-		history.replaceState({ page }, '', `/${page}`);
-	}
-
+function loadPage(page) {
 	load(`pages/${page}.html`, document.getElementById('app'));
-
-	if (addToHistory) {
-		history.pushState({ page }, '', `/${page}`);
-	}
 }
 
 // initial load
-const initialPage = location.pathname.replace('/', '') || 'home'; 
-loadPage(initialPage, false); // false we don't need that for home
+loadPage('home');
 
 // navigation managment
 document.addEventListener('click', (e) => {
 	if(e.target.matches('li[data-page]')) {
 		loadPage(e.target.dataset.page);
 	}
-});
-
-// backwards managment
-window.addEventListener('popstate', (e) => {
-	const page = e.state?.page || 'home'; /* e.state is natively connected with history states */
-	loadPage(page, false);
 });
 
 // other functions

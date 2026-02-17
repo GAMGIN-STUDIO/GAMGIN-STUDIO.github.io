@@ -1,16 +1,3 @@
-/* redirect from 404 */
-const redirect = sessionStorage.getItem('redirect');
-if (redirect) {
-	sessionStorage.removeItem('redirect');
-	const page = redirect.replace('/', '') || 'home';
-	loadPage(page, false);
-	history.replaceState({ page }, '', redirect);
-} else {
-	const initialPage = location.pathname.replace('/', '') || 'home';
-	loadPage(initialPage, false);
-	history.replaceState({ page: initialPage }, '', location.pathname);
-}
-
 /* user agent detection cause of safari bugs elimination */
 const ua = navigator.userAgent;
 const isIOS = /iPad|iPhone|iPod/.test(ua);

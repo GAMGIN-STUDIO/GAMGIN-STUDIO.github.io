@@ -1,12 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Redirecting</title>
-	<script>
-		const path = location.pathname;
-		sessionStorage.setItem('redirect', path);
-		location.replace('/');
-	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- favicon -->
+	<link rel="icon" href="./favicon.ico">
+	<!-- fonts load -->
+	 <link rel="stylesheet" href="./fonts.css">
+	<!-- styles -->
+	<link rel="stylesheet" href="./main.css">
+	<!-- font awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<title>404</title>
 </head>
+<body>
+	<div class="basic-div">
+		<h2 class="domain-header"><a href="https://gamgin.net" rel="noopener noreferrer">gamgin.net</a></h2>
+		<div class="main-div">
+			<header>
+				<aside>
+					<h1><a href="https://gamgin.net" rel="noopener noreferrer">GAMGIN STUDIO</a></h1>
+				</aside>
+				<nav>	
+				</nav>
+			</header>
+			<main class="not-found">
+				<h2>404 NOT FOUND</h2>
+			</main>
+		</div> <!-- main-div -->
+		<footer>
+			<p>© 2026 GAMGIN STUDIO · Developed by Filip Čermák</p>
+		</footer>
+	</div> <!-- basic-div -->
+
+	<!-- particles effect from  Marc Bruederlin -->
+	<canvas class="background"></canvas>
+  	<script src="./vendor/particles/particles.min.js"></script>
+	<script src="./particles.js"></script>
+</body>
 </html>
