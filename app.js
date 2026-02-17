@@ -17,7 +17,7 @@ function loadPage(page, addToHistory = true) {
 
 // initial load
 const initialPage = location.pathname.replace('/', '') || 'home'; 
-loadPage(initialPage, false); // false cause of initial load is auto saved by browser
+loadPage(initialPage, false); // false we don't need that for home
 
 // navigation managment
 document.addEventListener('click', (e) => {
