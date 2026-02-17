@@ -8,6 +8,15 @@ async function load(url, target) {
 	contactFormProcessingFunc(url); // Handles contact form processing
 }
 function loadPage(page, addToHistory = true) {
+	const validPages = ['home', 'about', 'projects', 'contact'];
+	// check valid pages
+	if (!validPages.includes(page)) {
+		page = 'home'; // fallback na home
+		history.replaceState({ page }, '', '/'); // změnit URL na root
+	} else if (page !== 'home') {
+		history.replaceState({ page }, '', `/${page}`);
+	}
+
 	load(`pages/${page}.html`, document.getElementById('app'));
 
 	if (addToHistory) {
