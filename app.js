@@ -1,3 +1,14 @@
+/* user agent detection cause of safari bugs elimination */
+const ua = navigator.userAgent;
+const isIOS = /iPad|iPhone|iPod/.test(ua);
+const isSafari = /^((?!chrome|android|crios|fxios|edgios|opios).)*safari/i.test(ua);
+if (isSafari) {
+  document.querySelector('body').classList.add("safari");
+}
+if (isIOS) {
+	document.querySelector('body').classList.add("iOS");
+}
+
 // main app funcitons
 async function load(url, target) {
 	const response = await fetch(url); // path to the correct html file
@@ -6,6 +17,8 @@ async function load(url, target) {
 	detailsTransformFunc(); // Transform details content for animation effect
 	await projectsHeaderFunc(url); // Add browser header onto projects cards
 	contactFormProcessingFunc(url); // Handles contact form processing
+	// initial cookie managment
+initialThemeSet();
 }
 function loadPage(page) {
 	load(`pages/${page}.html`, document.getElementById('app'));
@@ -16,8 +29,26 @@ loadPage('home');
 
 // navigation managment
 document.addEventListener('click', (e) => {
-	if(e.target.matches('li[data-page]')) {
+	if(e.target.matches('a[data-page]')) {
+		e.preventDefault();
 		loadPage(e.target.dataset.page);
+		e.target.classList.add('mobile-hover');
+		setTimeout(()=> {
+			e.target.classList.remove('mobile-hover');
+		}, 100);
+	}
+});
+
+/* theme button */
+const themeBut = document.querySelector('.theme');
+themeBut.addEventListener('click', () => {
+	const theme = getCookie('gamgin-theme');
+	if(theme === 'dark') {
+		setWhiteTheme();
+		document.cookie = "gamgin-theme=white; path=/; max-age=604800"; // expires in 7 days
+	}else{
+		setDarkTheme();
+		document.cookie = "gamgin-theme=dark; path=/; max-age=604800"; // expires in 7 days
 	}
 });
 
@@ -240,4 +271,45 @@ function nameRegardsFunc() {
 		if(name === '') name = 'Name Surname'
 		regards.innerHTML = `Best regards,<br>${name}`;
 	}
+}
+
+function getCookie(name){
+	const cookies = document.cookie.split('; ');
+	const cookie = cookies.find(() => `${name}=`).replace(`${name}=`, '')
+	return cookie;
+}
+
+function initialThemeSet(){
+	const theme  = getCookie('gamgin-theme');
+	if(!theme){
+		document.cookie = "gamgin-theme=white; path=/; max-age=604800"; // expires in 7 days
+	}else{
+		if(theme === "dark"){
+			setDarkTheme();
+		}
+	}
+}
+
+function setDarkTheme() {
+	document.body.classList.add('dark');
+	document.querySelector('.domain-header a').classList.add('dark');
+	document.querySelector('.theme').classList.add('dark');
+	document.querySelector('.accessibility').classList.add('dark');
+	document.querySelector('article').classList.add('dark');
+	document.querySelector('.summary').classList.add('dark');
+	document.querySelector('.details').classList.add('dark');
+	document.querySelector('footer').classList.add('dark');
+	document.querySelector('main').classList.add('dark');
+}
+
+function setWhiteTheme() {
+	document.body.classList.remove('dark');
+	document.querySelector('.domain-header a').classList.remove('dark');
+	document.querySelector('.theme').classList.remove('dark');
+	document.querySelector('.accessibility').classList.remove('dark');
+	document.querySelector('article').classList.remove('dark');
+	document.querySelector('.summary').classList.remove('dark');
+	document.querySelector('.details').classList.remove('dark');
+	document.querySelector('footer').classList.remove('dark');
+	document.querySelector('main').classList.remove('dark');	
 }
