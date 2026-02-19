@@ -18,7 +18,7 @@ async function load(url, target) {
 	await projectsHeaderFunc(url); // Add browser header onto projects cards
 	contactFormProcessingFunc(url); // Handles contact form processing
 	// initial cookie managment
-initialThemeSet();
+	initialThemeSet();
 }
 function loadPage(page) {
 	load(`pages/${page}.html`, document.getElementById('app'));
@@ -292,24 +292,8 @@ function initialThemeSet(){
 
 function setDarkTheme() {
 	document.body.classList.add('dark');
-	document.querySelector('.domain-header a').classList.add('dark');
-	document.querySelector('.theme').classList.add('dark');
-	document.querySelector('.accessibility').classList.add('dark');
-	document.querySelector('article').classList.add('dark');
-	document.querySelector('.summary').classList.add('dark');
-	document.querySelector('.details').classList.add('dark');
-	document.querySelector('footer').classList.add('dark');
-	document.querySelector('main').classList.add('dark');
 }
 
 function setWhiteTheme() {
 	document.body.classList.remove('dark');
-	document.querySelector('.domain-header a').classList.remove('dark');
-	document.querySelector('.theme').classList.remove('dark');
-	document.querySelector('.accessibility').classList.remove('dark');
-	document.querySelector('article').classList.remove('dark');
-	document.querySelector('.summary').classList.remove('dark');
-	document.querySelector('.details').classList.remove('dark');
-	document.querySelector('footer').classList.remove('dark');
-	document.querySelector('main').classList.remove('dark');	
 }
