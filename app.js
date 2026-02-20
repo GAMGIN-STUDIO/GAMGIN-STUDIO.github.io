@@ -25,32 +25,64 @@ function loadPage(page) {
 }
 
 // initial load
-loadPage('home');
+loadPage('projects');
 
-// navigation managment
+// click managment
 document.addEventListener('click', (e) => {
+
+	// navigation managment
 	if(e.target.matches('a[data-page]')) {
 		e.preventDefault();
 		loadPage(e.target.dataset.page);
 		e.target.classList.add('mobile-hover');
 		setTimeout(()=> {
 			e.target.classList.remove('mobile-hover');
-		}, 100);
+		}, 200);
+	}
+
+	// theme managment
+	if(e.target.matches('.theme[data-theme]')) {
+		const theme = getCookie('gamgin-theme');
+		if(theme === 'dark') {
+			setWhiteTheme();
+			document.cookie = "gamgin-theme=white; path=/; max-age=604800"; // expires in 7 days
+		}else{
+			setDarkTheme();
+			document.cookie = "gamgin-theme=dark; path=/; max-age=604800"; // expires in 7 days
+		}
+	}
+
+	// github and youtube managment
+	if(e.target.matches('a[data-promo]')) {
+		e.target.classList.add('mobile-hover');
+		setTimeout(()=> {
+			e.target.classList.remove('mobile-hover');
+		}, 200);
+	}
+
+	// card project managment
+	const card = e.target.closest('a.card-project');
+	if(card) {
+		const hasHover = window.matchMedia("(hover: hover)").matches;
+		if(!hasHover) {
+			if(!card.classList.contains('mobile-hover')) {
+				e.preventDefault();
+				card.classList.add('mobile-hover');
+			}else{
+				if(card.classList.contains('used')){
+					e.preventDefault();
+					card.classList.remove('mobile-hover');
+					card.classList.remove('used');
+				}else{
+					card.classList.add('used');
+				}
+			}
+		}
+	}else{
+		return;
 	}
 });
 
-/* theme button */
-const themeBut = document.querySelector('.theme');
-themeBut.addEventListener('click', () => {
-	const theme = getCookie('gamgin-theme');
-	if(theme === 'dark') {
-		setWhiteTheme();
-		document.cookie = "gamgin-theme=white; path=/; max-age=604800"; // expires in 7 days
-	}else{
-		setDarkTheme();
-		document.cookie = "gamgin-theme=dark; path=/; max-age=604800"; // expires in 7 days
-	}
-});
 
 // other functions
 function randomNumber(min, max) {
@@ -79,8 +111,10 @@ function detailsTransformFunc() {
 	if(first !== undefined && second !== undefined) {
 		transformDetails();
 		const summary = document.querySelector('.summary');
+		const summaryLink = document.getElementById('summary');
 		const details = document.querySelector('.details');
-		summary.addEventListener('click', () => {
+		summaryLink.addEventListener('click', (e) => {
+			e.preventDefault();
 			summary.classList.add('opened');
 			details.classList.add('opened');
 			for(const span of document.querySelectorAll('.details p span')) {
@@ -127,7 +161,7 @@ function contactFormProcessingFunc(url) {
 			formILang.classList.add('mobile-hover');
 			setTimeout(() => {
 				formILang.classList.remove('mobile-hover');
-			}, 100);
+			}, 200);
 			// lang managment
 			if(formI.dataset.lang === 'cs'){
 
@@ -174,7 +208,7 @@ function contactFormProcessingFunc(url) {
 			formIBut.classList.add('mobile-hover');
 			setTimeout(() => {
 				formIBut.classList.remove('mobile-hover');
-			}, 100);
+			}, 200);
 			// email managment			
 			if(formI.checkValidity()){
 				e.preventDefault();
