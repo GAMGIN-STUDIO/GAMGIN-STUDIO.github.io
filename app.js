@@ -25,7 +25,7 @@ function loadPage(page) {
 }
 
 // initial load
-loadPage('projects');
+loadPage('home');
 
 // click managment
 document.addEventListener('click', (e) => {

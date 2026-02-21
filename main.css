@@ -2,6 +2,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+	font-size: clamp(7px, 3.5vw, 20px);
+}
+
 @keyframes show {
 	0% {
 		background-color: purple;
@@ -113,7 +117,7 @@ body {
 			align-self: flex-start;
 			margin-left: 15px;
 
-			font-size: medium;
+			font-size: 1.1rem;
 
 			& a {
 				position: relative;
@@ -126,8 +130,8 @@ body {
 				position: absolute;
 				left: -8px;
 				right: -8px;
-				bottom: -0.01em;
-				height: 5px;
+				bottom: -0.1em;
+				height: 8px;
 				background: linear-gradient(135deg, transparent, #0000d5ff, purple, transparent);
 				z-index: -1;
 				opacity: 0.9;
@@ -155,7 +159,7 @@ body {
 					& h1 {
 						display: flex;
 						justify-content: center;
-						font-size: larger;
+						font-size: 2rem;
 
 						& a {
 							text-decoration: none;
@@ -172,8 +176,8 @@ body {
 					& .theme {
 						display: flex;
 						align-self: flex-end;
-						margin-right: 5px;
-						padding: 5px;
+						margin-right: 10px;
+						padding: 7px;
 
 						cursor: pointer;
 
@@ -184,6 +188,7 @@ body {
 						& span {
 							pointer-events: none;
 							display: inline-block;
+							font-size: 1.3rem;
 							transform: translateX(-2px);
 						}
 					}
@@ -192,12 +197,12 @@ body {
 						display: flex;
 						align-self: flex-end;
 						align-items: center;
-						margin-right: 5px;
+						margin-right: 15px;
 						margin-top: 10px;
-
 						color: purple; 
-						font-size: 25px;
 						text-decoration: none;
+						font-size: 3rem;
+						
 						filter: drop-shadow(1px 1px 1px black);
 					}
 
@@ -222,6 +227,7 @@ body {
 							padding: 12px;
 							color: black;
 							text-decoration: none;
+							font-size: 1.5rem;
 						}
 					}
 				}
@@ -278,35 +284,44 @@ body {
 
 						& h3.article-header {
 							margin-top: 40px;
+							font-size: 1.3rem;
 						}
 
 						& p {
 							background-color: rgba(128, 128, 128, 0.1);
 							padding: 15px;
+							max-width: max-content;
+							box-sizing: border-box;
+							width: 90%;		
 							border-radius: 5px;
 							text-align: left;
+							font-size: 1rem;
 						}
 					}
 					
 					& article.contact {
-						padding-right: 30px;
-						padding-left: 30px;
 
 						& ul {
 							display: flex;
 							flex-direction: column;
 							align-items: flex-start;
-							list-style: disc;
-							list-style-position: inside;
+							max-width: max-content;
+							box-sizing: border-box;
+							width: 90%;		
 							padding: 15px;
 							margin: 0px;
 							margin-top: 15px;
 							border: 5px solid purple;
 							border-radius: 8px;
+
+							list-style: none;						
 							filter: drop-shadow(1px 1px 1px black);
 
 							& li {
+								position: relative;
+  								padding-left: 1.4em;
 								margin: 2px 0px;
+								text-align: left;
 
 								& a {
 									color: purple;
@@ -335,6 +350,13 @@ body {
 									font-family: 'Black Ops One';
 								}
 
+							}
+
+							& li::before {
+								content: '✦ ';
+								position: absolute;
+								left: 0;
+								color: purple;
 							}
 						}
 					}
@@ -497,39 +519,53 @@ body {
 						display: flex;
 						flex-direction: column;
 						align-items: center;
+						max-width: max-content;
+						box-sizing: border-box;
+						width: 90%;						
 						padding: 15px 20px;
 						border: 3px solid purple;
 						border-radius: 15px;
+
+						font-size: 1rem;
+
 
 						& h3 {
 							color: purple;
 							margin: 5px 0px;
 							transform: translateX(-1px);
+							text-align: center;
 						}
 
 						& ul {
 							list-style: none;
-							list-style-position: inside;
-							padding-left: 0px;
+							padding: 0px;
 							margin-top: 10px;
 							margin-bottom: 5px;
 							line-height: 1.5;
-							transform: translateX(-1px);
+							transform: translateX(-2px);
 
 							& li {
+								position: relative;
+								padding-left: 1.4em;
+								text-align: left;
 
 								& ul {
 									list-style: none;
-									list-style-position: inside;
-									padding-left: 10px;
+									padding: 0px;
 									margin: 0px;
+									font-size: 0.9em;
 
 									& li {
+										position: relative;
+										padding-left: 1.4em;
+										text-align: left;
 										color: purple;
 									}
 
 									& li::before {
 										content: '― ';
+										position: absolute;
+										left: 0;
 										color: black;
 									}
 								}
@@ -538,6 +574,8 @@ body {
 
 							& li::before {
 								content: '✦ ';
+								position: absolute;
+								left: 0;
 								color: purple;
 							}
 						}
@@ -545,11 +583,14 @@ body {
 				}
 
 				& .middle.contact {
-					padding: 0px 30px;
 
 					& p {
 						margin-top: 40px;
 						margin-bottom: 30px;
+						max-width: max-content;
+						box-sizing: border-box;
+						width: 80%;			
+						text-align: center;
 					}
 
 					& form#form-I {
@@ -558,7 +599,9 @@ body {
 						flex-direction: column;
 						text-align: center;
 						padding: 20px;
-						width: clamp(200px, 40vw, 800px);
+						max-width: 800px;
+						box-sizing: border-box;
+						width: 90%;			
 						filter: drop-shadow(1px 1px 1px black);
 
 						/* language button styles */
@@ -574,7 +617,7 @@ body {
 							width: 4ex;
 							height: 4ex;
 							border-radius: 4ex;
-							font-size: 14px;	
+							font-size: 1.2rem;	
 							background-color: rgba(128, 128, 128, 0.3);
 							color: purple;							
 							border: 4px solid purple;
@@ -597,14 +640,16 @@ body {
 							margin: 4px 0px;
 							width: 70%;
 							max-width: 280px;
-							padding: 5px;
+							padding: 4px;
 							border: 2px solid purple;
 							border-radius: 5px;
 							outline: none;
 							resize: none;
 							background-color: rgba(128, 128, 128, 0.1);
 							color: gray;
-							font-family: 'Black Ops One';		
+							font-family: 'Black Ops One';	
+							font-size: 0.8rem;	
+							
 						}
 
 						& input:focus {
@@ -619,7 +664,8 @@ body {
 
 						& input::placeholder {
 							color: gray;
-							font-family: 'Black Ops One';		
+							font-family: 'Black Ops One';
+							font-size: 0.8rem;
 						}
 
 						& input:valid {
@@ -718,7 +764,7 @@ body {
 							margin: 4px 0px;
 							width: 50%;
 							max-width: 200px;
-							padding: 5px;
+							padding: 4px;
 							border: 2px solid purple;
 							border-radius: 5px;
 							outline: none;
@@ -726,7 +772,8 @@ body {
 							background-color: rgba(128, 128, 128, 0.1);
 							color: gray;				
 							font-family: 'Black Ops One';		
-							transition: transform 0.2s ease, border-color 0.2s ease;			
+							transition: transform 0.2s ease, border-color 0.2s ease;	
+							font-size: 0.8rem;	
 						}
 
 						& select:focus {
@@ -768,7 +815,7 @@ body {
 							}
 
 							& input[type=checkbox]:focus {
-								transform: scale(2);
+								transform: scale(1.5);
 							}
 						}
 
@@ -778,20 +825,20 @@ body {
 							align-self: center;
 							cursor: pointer;
 							margin-top: 30px;
-							padding: 5px;
-							border: 2px solid gray;
+							padding: 10px;
+							border: 4px solid gray;
 							outline: none;
 							border-radius: 5px;
 							background-color: rgba(128, 128, 128, 0.1);
 							color: white;		
 							font-family: 'Black Ops One';	
-							font-size: 14px;
+							font-size: 1.2rem;
 							filter: blur(3px);
 							transition: all 0.2s ease;
 						}
 
 						& button:focus {
-							border: 2px solid purple;		
+							border: 4px solid purple;		
 							outline: none;
 						}
 
@@ -799,7 +846,6 @@ body {
 							background-color: rgba(128, 128, 128, 0.3);
 							color: purple;	
 							border: 4px solid purple;
-							font-size: 18px;
 							filter: none;
 						}
 
@@ -833,6 +879,8 @@ body {
 							& a {
 								color: purple;
 								text-decoration: none;
+								font-size: 1.2rem;
+
 							}
 						}
 
@@ -861,7 +909,8 @@ body {
 							text-decoration: none;
 							color: black;
 							cursor: pointer;
-							transition: color 1.5s ease-in-out;					
+							transition: color 1.5s ease-in-out;
+							font-size: 1.3rem;			
 						}
 					}
 
@@ -948,7 +997,7 @@ body {
 					margin-top: 50px;
 					text-align: center;
 					color: purple;
-					font-size: 35px;
+					font-size: 1.8rem;
 				}
 			}
 
@@ -1123,15 +1172,19 @@ body.dark {
 						}
 					}
 
-					& .details {				
+					& .details {			
+						
+						& p {
+							font-size: 1rem;							
+						}
 
 						& p span.word {
-							animation: showDark 1s ease-in-out forwards;
+							animation: showDark 1s ease-in-out forwards;						
 						}
 						
 						& p span.word.close {
 							color: grey;
-							animation: close 0.5s ease-in-out forwards;							
+							animation: close 0.5s ease-in-out forwards;						
 						}						
 					}
 
@@ -1268,7 +1321,7 @@ body.safari, body.iOS {
 								width: 0%;
 								left: 50%;
   								transform: translateX(-50%);
-								bottom: 0.4em;
+								bottom: 0.3em;
 								height: 5px;
 								background: linear-gradient(135deg, transparent, purple, #0000d5ff, transparent);
 								opacity: 0.9;
@@ -1293,8 +1346,14 @@ body.safari, body.iOS {
 								color: white;
 							}
 
+							& label#privacy-policy:hover {
+								& input[type=checkbox] {
+									transform: scale(1.5);
+								}
+							}
+
 							& button:hover {
-								border: 2px solid purple;		
+								border: 4px solid purple;		
 								outline: none;
 							}							
 
@@ -1458,7 +1517,7 @@ body.safari, body.iOS {
 							width: clamp(100px + 30px, 50vw + 30px, 650px + 30px); /* for each witdh a.card be 30px wider  */
 							height: 50%;
 							transform: translateY(-50%);
-							font-size: clamp(9px, 2vw, 25px);
+							font-size: 0.8rem;
 							box-sizing: border-box;
 							padding: clamp(10px, 2vw, 40px);
 							animation: textBlow 1.8s ease-out forwards;
@@ -1515,7 +1574,7 @@ body.safari, body.iOS {
 							width: clamp(100px + 30px, 50vw + 30px, 650px + 30px); /* for each witdh a.card be 30px wider  */
 							height: 50%;
 							transform: translateY(-50%);
-							font-size: clamp(9px, 2vw, 25px);
+							font-size: 0.8rem;
 							box-sizing: border-box;
 							padding: clamp(10px, 2vw, 40px);
 							animation: textBlow 1.8s ease-out forwards;
@@ -1598,16 +1657,9 @@ body.safari, body.iOS {
 					}
 
 					& nav {
-						justify-content: normal;
 						background: linear-gradient(
 							90deg, transparent,  rgba(128, 0, 128, 0.8), rgba(128, 0, 128, 0.8),  rgba(128, 0, 128, 0.8), transparent
 						);
-
-						& ul {
-							display: flex;
-							flex-grow: 1;
-							justify-content: space-between;
-						}
 					}
 				}
 
@@ -1629,9 +1681,16 @@ body.safari, body.iOS {
 			& .main-div {
 				& header {
 					& nav {
+						justify-content: normal;						
 						background: linear-gradient(
 							90deg, transparent, rgba(128, 0, 128, 0.8), transparent
 						);
+
+						& ul {
+							display: flex;
+							flex-grow: 1;
+							justify-content: space-between;
+						}
 					}
 				}
 				& main {
