@@ -78,9 +78,14 @@ document.addEventListener('click', (e) => {
 				}
 			}
 		}
-	}else{
-		return;
 	}
+
+	// accessibility managment
+	const access = e.target.closest('a[data-access]');
+	if(access) {
+		e.preventDefault();
+		document.querySelector('html').classList.toggle('a11y');
+	};
 });
 
 
@@ -111,11 +116,12 @@ function detailsTransformFunc() {
 	if(first !== undefined && second !== undefined) {
 		transformDetails();
 		const summary = document.querySelector('.summary');
-		const summaryLink = document.getElementById('summary');
+		const summaryButton = document.getElementById('summary');
 		const details = document.querySelector('.details');
-		summaryLink.addEventListener('click', (e) => {
+		summaryButton.addEventListener('click', (e) => {
 			e.preventDefault();
 			summary.classList.add('opened');
+			summaryButton.ariaExpanded = true;
 			details.classList.add('opened');
 			for(const span of document.querySelectorAll('.details p span')) {
 				span.classList.remove('close');
@@ -124,6 +130,7 @@ function detailsTransformFunc() {
 		});
 		details.addEventListener('click', () => {
 				summary.classList.remove('opened');
+				summaryButton.ariaExpanded = false;
 				details.classList.remove('opened');
 				for(const span of document.querySelectorAll('.word')) {
 					span.classList.add('close');
@@ -252,7 +259,7 @@ function changeLangToCs(){
 	nameRegardsFunc();
 
 	for(const child of response.children){
-		if(child.value === '') child.innerText = 'Forma odpovědi';
+		if(child.value === '') child.innerText = 'Odpověď';
 		if(child.value === 'phone') child.innerText = 'Telefon';
 		if(child.value === 'email') child.innerText = 'E-mail';
 	}
@@ -285,7 +292,7 @@ function changeLangToEn(){
 	nameRegardsFunc();
 
 	for(const child of response.children){
-		if(child.value === '') child.innerText = 'Contact method';
+		if(child.value === '') child.innerText = 'Response';
 		if(child.value === 'phone') child.innerText = 'Phone';
 		if(child.value === 'email') child.innerText = 'E-mail';
 	}

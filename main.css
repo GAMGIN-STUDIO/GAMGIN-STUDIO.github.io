@@ -170,6 +170,7 @@ body {
 							-webkit-background-clip: text;
 							-webkit-text-fill-color: transparent;
 							filter: drop-shadow(1px 1px 1px black);
+							text-align: center;
 						}
 					}
 
@@ -203,7 +204,7 @@ body {
 						text-decoration: none;
 						font-size: 3rem;
 						
-						filter: drop-shadow(1px 1px 1px black);
+						filter: drop-shadow(2px 2px 2px black);
 					}
 
 				}
@@ -614,10 +615,9 @@ body {
 							top: 10px;
 							right: 10px;
 							cursor: pointer;
-							width: 4ex;
-							height: 4ex;
+							padding: 8px;
 							border-radius: 4ex;
-							font-size: 1.2rem;	
+							font-size: 1.1rem;	
 							background-color: rgba(128, 128, 128, 0.3);
 							color: purple;							
 							border: 4px solid purple;
@@ -627,6 +627,12 @@ body {
 								display: inline-block;
 								transform: translateX(-1px) translateY(-1px);
 							}
+						}
+
+						/* all just-accessibility need label styles */
+						& .just-access {
+							opacity: 0;
+							font-size: 0rem;
 						}
 
 						/* name and subject styles */
@@ -648,8 +654,8 @@ body {
 							background-color: rgba(128, 128, 128, 0.1);
 							color: gray;
 							font-family: 'Black Ops One';	
-							font-size: 0.8rem;	
-							
+							font-size: 0.8rem;
+							caret-color: red;									
 						}
 
 						& input:focus {
@@ -663,7 +669,7 @@ body {
 						}
 
 						& input::placeholder {
-							color: gray;
+							color: rgba(190, 0, 0, 0.8);
 							font-family: 'Black Ops One';
 							font-size: 0.8rem;
 						}
@@ -674,8 +680,10 @@ body {
 
 						/* input autofill damage elimination */
 						
-						input:-webkit-autofill {
-							transition: all 5000s ease-in;
+						input:-webkit-autofill,
+						input:-webkit-autofill:hover,
+						input:-webkit-autofill:focus {
+							transition: all 5000s ease-in, transform 0.2s ease;
 						}
 
 						/* message div */
@@ -724,7 +732,8 @@ body {
 								resize: none;
 								background: rgba(128, 0, 128, 0.1);
 								color: gray;
-								font-family: 'Black Ops One';								
+								font-family: 'Black Ops One';				
+								caret-color: red;			
 							}
 
 							& textarea:focus {
@@ -738,7 +747,7 @@ body {
 							}
 
 							& textarea::placeholder {
-								color: purple;
+								color: rgba(190, 0, 0, 0.8);
 								font-family: 'Black Ops One';							
 							}
 
@@ -770,7 +779,7 @@ body {
 							outline: none;
 							resize: none;
 							background-color: rgba(128, 128, 128, 0.1);
-							color: gray;				
+							color: rgba(190, 0, 0, 0.8);			
 							font-family: 'Black Ops One';		
 							transition: transform 0.2s ease, border-color 0.2s ease;	
 							font-size: 0.8rem;	
@@ -791,6 +800,7 @@ body {
 						}
 
 						& select:valid {
+							color: gray;
 							border-color: rgba(128, 0, 128, 0.1);
 						}
 
@@ -838,7 +848,7 @@ body {
 						}
 
 						& button:focus {
-							border: 4px solid purple;		
+							border: 4px solid rgba(190, 0, 0, 0.8);		
 							outline: none;
 						}
 
@@ -903,14 +913,19 @@ body {
 						width: max-content;
 						margin: 10px 0px;
 
-						& a {
+						& button#summary {
 							display: inline-block;
-							transform: translateX(-2px);
+							background-color: transparent;
+							border: none;
 							text-decoration: none;
 							color: black;
 							cursor: pointer;
 							transition: color 1.5s ease-in-out;
-							font-size: 1.3rem;			
+							font-size: 1.3rem;
+							transform: translateX(-2px);
+							font-family: "Audiowide";	
+							font-style: italic;
+							font-weight: bold;							
 						}
 					}
 
@@ -931,7 +946,7 @@ body {
 					}
 
 					& .summary.opened {
-						& a {
+						& button#summary {
 							pointer-events: none;							
 							color: transparent;
 						}
@@ -1047,7 +1062,7 @@ body.dark {
 						color: black;
 					}
 					& a.accessibility {
-						filter: drop-shadow(2px 2px 2px black);
+						filter: drop-shadow(4px 4px 4px black);
 					}					
 				}
 				& nav {
@@ -1130,7 +1145,7 @@ body.dark {
 						}
 
 						& input::placeholder {
-							color: white;
+							color: rgba(190, 0, 0, 0.8);
 						}
 
 						& .message {
@@ -1144,7 +1159,7 @@ body.dark {
 							}
 
 							& textarea::placeholder {
-								color: white;
+								color: rgba(190, 0, 0, 0.8);
 							}
 
 							& .regards {
@@ -1153,21 +1168,25 @@ body.dark {
 						}
 
 						& select {
-							color: white;	
-						}						
+							color: rgba(190, 0, 0, 0.8);	
+						}		
+						
+						& select:valid {
+							color: white;
+						}
 					}
 				}				
 
 				& .second {
 					
 					& .summary {
-						& a {
+						& button#summary {
 							color: purple;
 						}
 					}
 
 					& .summary.opened {
-						& a {
+						& button#summary {
 							color: transparent;
 						}
 					}
@@ -1236,6 +1255,8 @@ body.safari, body.iOS {
 
 								& span.at {
 									font-family: 'Montserrat Alternates';
+									font-weight: 600;
+									font-style: italic;
 								}
 							}
 						}
@@ -1278,12 +1299,36 @@ body.safari, body.iOS {
 					& form#form-I {
 						filter: none;
 
+						& .lang {
+							& span {
+								transform: translateX(0px) translateY(-2px);
+							}
+						}
+
 						& select {
 							height: 5ex;
+						}
+
+						& label#privacy-policy {
+							& input[type=checkbox] {
+								margin-top: 0px;
+								margin-bottom: 0px;
+								transform: translateY(-5px);
+							}
 						}
 					}
 					& form#form-I::after {
 						filter: none;
+					}
+				}
+
+				& .second {
+					& .summary {
+						& button#summary {
+							font-family: 'Montserrat Alternates';	
+							font-weight: 600;
+							font-style: italic;						
+						}
 					}
 				}
 			}
@@ -1353,11 +1398,12 @@ body.safari, body.iOS {
 							}
 
 							& button:hover {
-								border: 4px solid purple;		
+								border: 4px solid rgba(190, 0, 0, 0.8);	
 								outline: none;
 							}							
 
 							& button.active:hover {
+								border-color: purple;
 								background-color: rgba(128, 128, 128, 0.6);
 								color: white;
 							}			
@@ -1680,17 +1726,10 @@ body.safari, body.iOS {
 		& .basic-div {
 			& .main-div {
 				& header {
-					& nav {
-						justify-content: normal;						
+					& nav {					
 						background: linear-gradient(
 							90deg, transparent, rgba(128, 0, 128, 0.8), transparent
 						);
-
-						& ul {
-							display: flex;
-							flex-grow: 1;
-							justify-content: space-between;
-						}
 					}
 				}
 				& main {
@@ -1720,8 +1759,33 @@ body.safari, body.iOS {
 						}
 					}
 				}
-			}
+			}		
+		}
+	}
+}
 
+@media(min-width: 650px){
+	body {
+		& .basic-div {
+			& .main-div {
+				& header {
+					& nav {
+						justify-content: normal;			
+						& ul {
+							display: flex;
+							flex-grow: 1;
+							justify-content: space-between;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media(min-width: 700px) {
+	body {
+		& .basic-div {
 			& footer {
 				flex-direction: row;
 
@@ -1732,7 +1796,111 @@ body.safari, body.iOS {
 				& p:nth-child(2) {
 					margin: 0px 10px;
 				}
-			}			
+			}	
 		}
+	}
+}
+
+@media (max-width: 850px) {
+	html.a11y {
+		body {
+			& .basic-div {
+				& .main-div {
+					& header {
+						& nav {
+							justify-content: center;
+							& ul {
+								display: block;
+								flex-grow: 0;
+								justify-content: normal;
+							}
+						}
+					}
+				}
+				& footer {
+					flex-direction: column;
+
+					& p.dot {
+						display: none;
+					}
+
+					& p:nth-child(2) {
+						margin: initial;
+					}
+				}	
+			}
+		}
+	}
+}
+
+@media (min-width: 851px) {
+	html.a11y {
+		body {
+			& .basic-div {
+				& .main-div {
+					& header {
+						& nav {
+							justify-content: normal;
+							& ul {
+								display: flex;
+								flex-grow: 1;
+								justify-content: space-between;
+							}
+						}
+					}
+				}
+				& footer {
+					flex-direction: row;
+
+					& p.dot {
+						display: block;
+					}
+
+					& p:nth-child(2) {
+						margin: 0px 10px;
+					}
+				}	
+			}
+		}
+	}
+}
+
+html.a11y {
+	font-size: clamp(13px, 4.5vw, 26px);
+
+	& body, & body.dark, & body.iOS, & body.safari {
+		background-color: white;
+		* {
+			color: black;
+		}
+		& .basic-div {
+			& .main-div {
+/* 				& header {
+					& aside {
+
+					}
+					& nav {
+ 
+					}
+				} */
+				& main {
+					& .first {
+						& .logo {
+							background: none;
+						}
+					}
+/* 					& .middle {
+
+					}
+					& .second {
+
+					} */
+				}
+			}
+		}
+	}
+
+	& body::before {
+		content: none;
 	}
 }
