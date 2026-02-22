@@ -85,6 +85,7 @@ document.addEventListener('click', (e) => {
 	if(access) {
 		e.preventDefault();
 		document.querySelector('html').classList.toggle('a11y');
+		document.querySelector('.theme[data-theme]').classList.toggle('off');
 	};
 });
 
