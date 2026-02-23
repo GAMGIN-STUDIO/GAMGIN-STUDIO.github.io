@@ -612,8 +612,8 @@
 								display: flex;
 								justify-content: center;
 								align-items: center;
-								top: 10px;
-								right: 10px;
+								top: 7px;
+								right: 7px;
 								cursor: pointer;
 								width: 25px;
 								height: 25px;
@@ -1234,6 +1234,17 @@
 
 		& .basic-div { 
 			& .main-div { 
+
+				& header {
+					& aside {
+						& .theme {
+							& span {
+								transform: translateX(0px);
+							}
+						}
+					}
+				}
+
 				& main { 
 
 					& .first { 
@@ -1300,7 +1311,7 @@
 								& input[type=checkbox] {
 									margin-top: 0px;
 									margin-bottom: 0px;
-									transform: translateY(-5px);
+									transform: translateY(-2px);
 								}
 							}
 						}
@@ -1971,12 +1982,14 @@
 				background: none;
 			}
 
-			& article.contact {
+			& article {
 				color: black;
-
 				& p {
 					color: black;
 				}
+			}
+
+			& article.contact {
 
 				& ul {
 					filter: none;
@@ -2007,9 +2020,9 @@
 				}
 			}
 
-
 			& a.card-project {
 				& .project {
+					transition: opacity 0.6s ease;
 
 					& #browser-header {
 						border-radius: 15px 15px 0px 0px; /* fix of microscopic pixel bacground shining through of border radius  */
@@ -2034,26 +2047,63 @@
 				}	
 			}
 
-			& form#form-I {
-				filter: none;
+			& .middle.contact {
 
-				& .lang {
-					font-size: 0.9rem;
-					padding: 0.3rem;
+				& p {
+					color: black;
+				}
 
-					& span {
-						transform: translateX(-1px) translateY(-1px);
+				& form#form-I {
+					filter: none;
+
+					& .lang {
+						font-size: 1rem;
+						padding: 0.3rem;
+						width: 30px;
+						height: 30px;
+
+						& span {
+							transform: translateX(-1px) translateY(-1px);
+						}
+					}
+
+					& input, & input:placeholder-shown, & input:focus {
+						color: black;
+					}
+
+					& textarea, & textarea:placeholder-shown, & textarea:focus {
+						color: black;
+					}
+
+					& select:valid {
+						color: black;
+					}
+
+					& label#privacy-policy {
+						background-color: rgba(128, 128, 128, 0.1);
+						color: black;
+					}
+
+					& button {
+						filter: none;
+
+						color: rgba(190, 0, 0, 0.8);
+					}
+
+					& button.active {
+						color: purple;
 					}
 				}
 
-				& label#privacy-policy {
-					background-color: rgba(128, 128, 128, 0.1);
+				& form#form-I::after {
+					filter: none;
 				}
 
-			}
-
-			& form#form-I::after {
-				filter: none;
+				& .links {
+					& p {
+						margin-bottom: 5px;
+					}
+				}
 			}
 
 			& .summary {
@@ -2156,32 +2206,14 @@
 								}
 							}
 
-							/* & .middle.contact {
-								& form#form-I {
-
-									& .lang:hover {
-										background-color: rgba(128, 128, 128, 0.6);
-										color: white;
-									}
-
-									& label#privacy-policy:hover {
-										& input[type=checkbox] {
-											transform: scale(1.5);
-										}
-									}
-
-									& button:hover {
-										border: 4px solid rgba(190, 0, 0, 0.8);	
-										outline: none;
-									}							
+							& .middle.contact {
+								& form#form-I {						
 
 									& button.active:hover {
-										border-color: purple;
-										background-color: rgba(128, 128, 128, 0.6);
-										color: white;
+										color: black;
 									}			
 								}
-							} */
+							}
 						}
 					}
 				}
@@ -2230,21 +2262,14 @@
 								}
 							}
 
-/* 							& .middle.contact {
-								& form#form-I {
-
-									& .lang.mobile-hover {
-										background-color: rgba(128, 128, 128, 0.6);
-										color: white;						
-									}
+							& .middle.contact {
+								& form#form-I {						
 
 									& button.active.mobile-hover {
-										background-color: rgba(128, 128, 128, 0.6);
-										color: white;							
-									}						
-
+										color: black;
+									}			
 								}
-							} */
+							}
 						}
 					}
 				}
@@ -2255,12 +2280,6 @@
 	@media (hover: hover) and (pointer: fine) and (min-width: 300px) {
 		html.a11y {
 			& body, & body.safari, & body.iOS {
-
-				& a.card-project {
-					& .project {
-						transition: opacity 0.6s ease;
-					}
-				}
 
 				& a.card-project:hover {
 					& .project {
@@ -2280,12 +2299,6 @@
 	@media (hover: none) and (min-width: 300px), (pointer: coarse) and (min-width: 300px) {
 		html.a11y {
 			& body, & body.safari, & body.iOS { 
-				
-				& a.card-project {
-					& .project {
-						transition: opacity 0.6s ease;
-					}
-				}
 
 				& a.card-project.mobile-hover {
 					& .project {
