@@ -11,29 +11,45 @@ if (isIOS) {
 
 // main app funcitons
 async function load(url, target) {
+
 	const response = await fetch(url); // path to the correct html file
 	target.innerHTML = await response.text();
+
 	// now the dynamic DOM exists
 	detailsTransformFunc(); // Transform details content for animation effect
 	await projectsHeaderFunc(url); // Add browser header onto projects cards
 	contactFormProcessingFunc(url); // Handles contact form processing
+
 	// initial cookie managment
-	initialThemeSet();
+	initThemeSet();
+	initAccessSet();
 }
 function loadPage(page) {
-	load(`pages/${page}.html`, document.getElementById('app'));
+	// initial lang cookie managment
+	const initLang = initWebLangSet();
+	const lang = initLang ?? initWebLangSet();
+	// loading
+	load(`pages/${page}_${lang}.html`, document.getElementById('app'));
 }
 
 // initial load
 loadPage('home');
 
-// click managment
+// click website managment
 document.addEventListener('click', (e) => {
+
+	// headers managment
+	if(e.target.matches('a#h1-home') || e.target.matches('a#domain-home')) {
+		e.preventDefault();
+		loadPage('home');
+		document.querySelector('a#web-lang').dataset.pageHistory = 'home';
+	}
 
 	// navigation managment
 	if(e.target.matches('a[data-page]')) {
 		e.preventDefault();
 		loadPage(e.target.dataset.page);
+		document.querySelector('a#web-lang').dataset.pageHistory = e.target.dataset.page;
 		e.target.classList.add('mobile-hover');
 		setTimeout(()=> {
 			e.target.classList.remove('mobile-hover');
@@ -81,12 +97,25 @@ document.addEventListener('click', (e) => {
 	}
 
 	// accessibility managment
-	const access = e.target.closest('a[data-access]');
-	if(access) {
+	const accessButton = e.target.closest('a[data-access]');
+	if(accessButton) {
 		e.preventDefault();
-		document.querySelector('html').classList.toggle('a11y');
-		document.querySelector('.theme[data-theme]').classList.toggle('off');
+		const access = getCookie('gamgin-access');
+		setAccess(access, true);
 	};
+
+	// web lang managment
+	if(e.target.matches('a#web-lang')) {
+		e.preventDefault();
+		const lang = getCookie('gamgin-lang');
+		if(lang === 'cs'){
+			document.cookie = 'gamgin-lang=en; path=/; max-age=604800';
+			loadPage(document.querySelector('a#web-lang').dataset.pageHistory);
+		}else{
+			document.cookie = 'gamgin-lang=cs; path=/; max-age=604800';
+			loadPage(document.querySelector('a#web-lang').dataset.pageHistory);
+		}
+	}
 });
 
 
@@ -142,7 +171,7 @@ function detailsTransformFunc() {
 }
 
 async function projectsHeaderFunc(url) {
-	if(url === 'pages/projects.html'){
+	if(url === 'pages/projects_en.html' || url === 'pages/projects_cs.html'){
 		const browserTemplates = document.querySelectorAll('#browser-header') ?? undefined;
 		if (browserTemplates !== undefined){
 			const response = await fetch('browser-template/browser-header.html');
@@ -155,42 +184,35 @@ async function projectsHeaderFunc(url) {
 }
 
 function contactFormProcessingFunc(url) {
-	if(url === 'pages/contact.html'){
+	if(url === 'pages/contact_en.html' || url === 'pages/contact_cs.html'){
 		const formI = document.getElementById('form-I');
 		const formILang = document.getElementById('form-I-lang');
 		const formIBut = document.getElementById('form-I-but');
 		
 		// initial name regards managment
-		nameRegardsFunc();
+		nameRegardsFunc(true);
 
 		// language managment
 		formILang.addEventListener('click', () => {
+
 			// mobile hover managment
 			formILang.classList.add('mobile-hover');
 			setTimeout(() => {
 				formILang.classList.remove('mobile-hover');
 			}, 200);
-			// lang managment
-			if(formI.dataset.lang === 'cs'){
 
-				// dataset managment
-				formI.dataset.lang = 'en';
-
-				// lang form managment
+			// form lang toggle managment
+			const langToggle = formILang.dataset.langToggle;
+			if(langToggle === 'cs'){
 				formILang.innerText = 'cs';
 				formIBut.innerText = 'Send e-mail';
 				changeLangToEn();
-
-			}else{
-
-				// dataset managment
-				formI.dataset.lang = 'cs';		
-
-				// lang form managment
+				formILang.dataset.langToggle = 'en';
+			}else{	
 				formILang.innerText = 'en';
 				formIBut.innerText = 'Odeslat e-mail';	
 				changeLangToCs();
-
+				formILang.dataset.langToggle = 'cs';
 			}
 		});
 
@@ -198,15 +220,24 @@ function contactFormProcessingFunc(url) {
 		formI.addEventListener("input", (e) => {
 
 			// validity managment
-			if(formI.checkValidity()){
-				formIBut.classList.add('active');
-			}else{
-				formIBut.classList.remove('active');
-			};
+			checkForm();
 
 			// name regards managment
 			if(e.target.matches('input[name="full-name"]')){
-				nameRegardsFunc();
+				nameRegardsFunc(true);
+			}
+
+			if(e.target.matches('select[name="response"]')){
+				const telInput = document.querySelector('input[name="telephone"]');
+				const response = e.target.value;
+				if(response === 'phone'){
+					telInput.classList.remove('off');
+					telInput.required = true;
+				}else{
+					telInput.classList.add('off');
+					telInput.required = false;
+				}
+				checkForm();
 			}
 		});
 
@@ -220,19 +251,37 @@ function contactFormProcessingFunc(url) {
 			// email managment			
 			if(formI.checkValidity()){
 				e.preventDefault();
+				// phone prepare part
+				const telSelect = document.querySelector('select[name="response"]');
 				// parameters
 				const salutation = encodeURIComponent(document.querySelector('select[name="salutation"]').value);
 				const subject = encodeURIComponent(document.querySelector('input[name="subject"]').value);
 				const hello = encodeURIComponent(document.querySelector('.hello').innerText);
 				const message = encodeURIComponent(document.querySelector('textarea[name="message"]').value);
 				const regards = encodeURIComponent(document.querySelector('.regards').innerText);
-				const response = encodeURIComponent(document.querySelector('select[name="response"]').value);
+				const response = encodeURIComponent(telSelect.value);
+				const telNum = encodeURIComponent(document.querySelector('input[name="telephone"]').value);
 				const br = encodeURIComponent('\n');
+				// phone managment
+				let telAtribute = '';
+				if(telSelect.value === 'phone'){
+					telAtribute = `[phone=${telNum}]`;
+				}
 				// email href
-				window.location.href = `mailto:info@gamgin.net?subject=${subject}&body=${hello}${br+br}${message}${br+br}${regards}${br+br+br+br}[salutation=${salutation}]${br}[response=${response}]`;
+				window.location.href = `mailto:info@gamgin.net?subject=${subject}&body=${hello}${br+br}${message}${br+br}${regards}${br+br+br+br}[salutation=${salutation}]${br}[response=${response}]${br}${telAtribute}`;
 			}
 		});
 	}
+}
+
+function checkForm() {
+	const formI = document.getElementById('form-I');
+	const formIBut = document.getElementById('form-I-but');
+	if(formI.checkValidity()){
+		formIBut.classList.add('active');
+	}else{
+		formIBut.classList.remove('active');
+	};
 }
 
 function changeLangToCs(){
@@ -243,6 +292,7 @@ function changeLangToCs(){
 	const labelMessage = document.querySelector('label#message');
 	const textarea = document.querySelector('textarea[name="message"]');
 	const response = document.querySelector('select[name="response"]');
+	const phoneNumber = document.querySelector('input[name="telephone"]');
 	const ppContent = document.getElementById('pp-content');
 
 	for(const child of salutation.children){
@@ -265,6 +315,8 @@ function changeLangToCs(){
 		if(child.value === 'email') child.innerText = 'E-mail';
 	}
 
+	phoneNumber.placeholder = "tel. číslo";
+
 	ppContent.innerHTML = 'Souhlasím se&nbsp;zpracováním svých osobních údajů za&nbsp;účelem zodpovězení mé&nbsp;poptávky,  v&nbsp;souladu s&nbsp;zásadami ochrany osobních údajů na&nbsp;těchto webových stránkách.';
 }
 
@@ -276,6 +328,7 @@ function changeLangToEn(){
 	const labelMessage = document.querySelector('label#message');
 	const textarea = document.querySelector('textarea[name="message"]');
 	const response = document.querySelector('select[name="response"]');
+	const phoneNumber = document.querySelector('input[name="telephone"]');
 	const ppContent = document.getElementById('pp-content');
 
 	for(const child of salutation.children){
@@ -298,30 +351,41 @@ function changeLangToEn(){
 		if(child.value === 'email') child.innerText = 'E-mail';
 	}
 
+	phoneNumber.placeholder = 'phone number';
+
 	ppContent.innerHTML = 'I agree to&nbsp;the&nbsp;processing of&nbsp;my personal data for&nbsp;the&nbsp;purpose of&nbsp;responding to&nbsp;my inquiry, in&nbsp;accordance with&nbsp;the&nbsp;Privacy Policy of&nbsp;this website.';
 }
 
-function nameRegardsFunc() {
-	const formI = document.getElementById('form-I');
-	const fullNameInput = document.querySelector('input[name="full-name"]');
-	let name = fullNameInput.value;
+function nameRegardsFunc(initial = false) {
+	const langToggle = document.getElementById('form-I-lang').dataset.langToggle;
+	let name = document.querySelector('input[name="full-name"]').value;
 	const regards = document.querySelector('.regards');
-	if(formI.dataset.lang === 'cs'){
-		if(name === '') name = 'Jméno Příjmení';
-		regards.innerHTML = `S pozdravem,<br>${name}`;
+	if(initial){
+		if(langToggle === 'cs'){
+			if(name === '') name = 'Jméno Příjmení';
+			regards.innerHTML = `S pozdravem,<br>${name}`;
+		}else{
+			if(name === '') name = 'Name Surname'
+			regards.innerHTML = `Best regards,<br>${name}`;
+		}
 	}else{
-		if(name === '') name = 'Name Surname'
-		regards.innerHTML = `Best regards,<br>${name}`;
+		if(langToggle === 'en'){
+			if(name === '') name = 'Jméno Příjmení';
+			regards.innerHTML = `S pozdravem,<br>${name}`;
+		}else{
+			if(name === '') name = 'Name Surname'
+			regards.innerHTML = `Best regards,<br>${name}`;
+		}
 	}
 }
 
 function getCookie(name){
 	const cookies = document.cookie.split('; ');
-	const cookie = cookies.find(() => `${name}=`).replace(`${name}=`, '')
-	return cookie;
+	const cookie = cookies.find(c => c.startsWith(name + '='))
+	return cookie ? cookie.split('=')[1] : '';
 }
 
-function initialThemeSet(){
+function initThemeSet(){
 	const theme  = getCookie('gamgin-theme');
 	if(!theme){
 		document.cookie = "gamgin-theme=white; path=/; max-age=604800"; // expires in 7 days
@@ -338,4 +402,55 @@ function setDarkTheme() {
 
 function setWhiteTheme() {
 	document.body.classList.remove('dark');
+}
+
+function initAccessSet() {
+	const access = getCookie('gamgin-access');
+	if(access !== ''){
+		setAccess(access);
+	}else{
+		document.cookie = 'gamgin-access=none; path=/; max-age=604800'; // expires in 7 days
+	}
+}
+
+function setAccess(access, toggle = false) {
+	if(access === 'none'){
+		setAccessNone(toggle);
+	}else{
+		setAccessOn(toggle);
+	}
+}
+
+function setAccessNone(toggle){
+	if(toggle){
+		document.querySelector('html').classList.add('a11y');
+		document.querySelector('.theme[data-theme]').classList.add('off');
+		document.cookie = 'gamgin-access=on; path=/; max-age=604800'; // expires in 7 days	
+	}else{
+		document.querySelector('html').classList.remove('a11y');
+		document.querySelector('.theme[data-theme]').classList.remove('off');
+		document.cookie = 'gamgin-access=none; path=/; max-age=604800'; // expires in 7 days
+	}
+}
+
+function setAccessOn(toggle){
+	if(!toggle){
+		document.querySelector('html').classList.add('a11y');
+		document.querySelector('.theme[data-theme]').classList.add('off');
+		document.cookie = 'gamgin-access=on; path=/; max-age=604800'; // expires in 7 days	
+	}else{
+		document.querySelector('html').classList.remove('a11y');
+		document.querySelector('.theme[data-theme]').classList.remove('off');
+		document.cookie = 'gamgin-access=none; path=/; max-age=604800'; // expires in 7 days
+	}
+}
+
+function initWebLangSet() {
+	const lang = getCookie('gamgin-lang');
+	if(lang === ""){
+		document.cookie = 'gamgin-lang=cs; path=/; max-age=604800';
+		return null;
+	}else{
+		return lang;
+	}
 }

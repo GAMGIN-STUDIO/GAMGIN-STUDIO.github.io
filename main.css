@@ -165,6 +165,7 @@
 					flex-direction: column;
 
 					& aside {
+						position: relative;
 						display: flex;
 						flex-direction: column;
 						margin-bottom: 10px;
@@ -218,6 +219,26 @@
 							font-size: 3rem;
 							
 							filter: drop-shadow(2px 2px 2px black);
+						}
+
+						& a#web-lang {
+							position: absolute;
+							bottom: 2rem;
+							left: 10px;
+							padding: 0.4rem;
+							font-size: 1.3rem;
+							color: rgba(0, 0, 0);
+							background: radial-gradient(
+								transparent 0%,
+								rgba(128, 0, 128, 0.9) 90%,
+								purple 95%
+							);
+							border: 1px solid rgba(128, 0, 128);
+							border-radius: 50%;
+
+							& i {
+								pointer-events: none;
+							}
 						}
 
 					}
@@ -798,12 +819,23 @@
 							}
 
 							& select[name=response] {
-								margin-top: 25px;
+								margin-top: 50px;
 							}
 
 							& select:valid {
 								color: gray;
 								border-color: rgba(128, 0, 128, 0.1);
+							}
+
+							/* telephone number styles */
+
+							& input#telephone.off {
+								opacity: 0;
+								pointer-events: none;
+							}
+
+							& input#telephone {
+								opacity: 1;
 							}
 
 							/* privacy & policy styles */
@@ -1065,7 +1097,17 @@
 						}
 						& a.accessibility {
 							filter: drop-shadow(4px 4px 4px black);
-						}					
+						}	
+						
+						a#web-lang {
+							color: rgb(200, 200, 200);
+							background: radial-gradient(
+								transparent 0%,
+								rgba(128, 0, 128, 0.3) 90%,
+								purple 95%
+							);
+							border-color: rgba(128, 0, 128, 0.8);
+						}
 					}
 					& nav {
 						& ul {
@@ -1720,24 +1762,54 @@
 								color: transparent;
 							}
 
+							/* dosing */
+
 							& a#dosing:hover::after, & a#dosing.mobile-hover::after {
 								content: 'A simple medicine dosing calculator converting dosage data into micrograms per minute per kilogram of patient body weight. Recent results are stored locally.';
 							}
+
+							& a#dosing.cs:hover::after, & a#dosing.cs.mobile-hover::after {
+								content: 'Jednoduchá kalkulačka dávkování léků, která převádí dávkovací údaje na mikrogramy za minutu na kilogram tělesné hmotnosti pacienta. Poslední výsledky jsou ukládány lokálně.';
+							}
+
+							/* to-do */
 
 							& a#to-do:hover::after, & a#to-do.mobile-hover::after {
 								content: 'A small to-do app for creating and managing tasks. Users can select, edit, or delete individual items and download the to-do list as a screenshot.';
 							}
 
+							& a#to-do.cs:hover::after, & a#to-do.cs.mobile-hover::after {
+								content: 'Jednoduchá to-do aplikace pro vytváření a správu úkolů. Uživatelé mohou jednotlivé položky označovat, upravovat nebo mazat a stáhnout si seznam úkolů jako snímek obrazovky.';
+							}
+
+							/* duhacek */
+
 							& a#duhacek:hover::after, & a#duhacek.mobile-hover::after {
 								content: 'This project was a collaboration with Lucie Bílková, a key member of the non-profit organization Duháček. The website represents the organization’s activities and facilities.';
 							}
+
+							& a#duhacek.cs:hover::after, & a#duhacek.cs.mobile-hover::after {
+								content: 'Tento projekt vznikl ve spolupráci s Lucií Bílkovou, klíčovou členkou neziskové organizace Duháček. Webové stránky prezentují činnost a zázemí této organizace.';
+							}
+
+							/* good coffe */
 
 							& a#good-coffee:hover::after, & a#good-coffee.mobile-hover::after {
 								content: 'Good Café is a fictional educational website that demonstrates the basics of web development using HTML, CSS, JavaScript, PHP, and MySQL.';
 							}
 
+							& a#good-coffee.cs:hover::after, & a#good-coffee.cs.mobile-hover::after {
+								content: 'Good Café je fiktivní vzdělávací webová stránka, která ukazuje základy vývoje webu pomocí HTML, CSS, JavaScriptu, PHP a MySQL.';
+							}
+
+							/* valentine */
+
 							& a#valentine:hover::after, & a#valentine.mobile-hover::after {
 								content: 'It’s a tiny little project made just for Valentine’s Day :D. You can grab it from my GitHub and use it to put a smile on your partner’s face!';
+							}
+
+							& a#valentine.cs:hover::after, & a#valentine.cs.mobile-hover::after {
+								content: 'Malý projekt vytvořený speciálně na Valentýna :D. Můžete si ho stáhnout z mého GitHubu a použít k vykouzlení úsměvu na tváři svého partnera!';
 							}
 						}
 					}
@@ -1959,12 +2031,31 @@
 				opacity: 0;
 			}
 
-			& a.accessibility {
-				filter: none;
+			& aside {
+				padding-bottom: 6rem;
+
+				& a.accessibility {
+					position: absolute;
+					margin: 0px;
+					left: 50%;
+					bottom: 1rem;
+					transform: translateX(-50%);
+					filter: none;
+				}
+
+				a#web-lang {
+					left: 50%;
+					transform: translateX(-50%);
+					bottom: 5rem;
+					color: rgba(0, 0, 0);
+					background: none;
+					border-color: rgba(128, 0, 128);
+				}
 			}
 
 			& nav {
-				background: none;
+				background: linear-gradient(90deg, rgba(128, 128, 128, 0.1), transparent, rgba(128, 128, 128, 0.1), transparent, rgba(128, 128, 128, 0.1));
+				border-radius: 5px;
 				& ul {
 					& li {
 						& a {
@@ -2071,12 +2162,29 @@
 						color: black;
 					}
 
+					& .hello {
+						color: black;
+					}
+
 					& textarea, & textarea:placeholder-shown, & textarea:focus {
+						color: black;
+					}
+
+					& .regards {
 						color: black;
 					}
 
 					& select:valid {
 						color: black;
+					}
+
+					& input#telephone.off {
+						opacity: 0;
+						pointer-events: none;
+					}
+
+					& input#telephone {
+						opacity: 1;
 					}
 
 					& label#privacy-policy {

@@ -18,9 +18,9 @@
 
 	<p>Form bellow helps you to&nbsp;create email to&nbsp;contact me, if you want. </p>
 
-	<form id="form-I" data-lang="en" >
+	<form id="form-I">
 
-		<div id="form-I-lang" class="lang"><span>cs</span></div>
+		<div id="form-I-lang" data-lang-toggle="en" class="lang"><span>cs</span></div>
 
 		<label class="just-access" for="salutation">Salutation</label>
 		<select name="salutation" id="salutation" required>
@@ -50,6 +50,8 @@
 			<option value="email">E-mail</option>
 		</select>
 
+		<label class="just-access" for="telephone">Telephone number</label>
+		<input type="tel" class="off" name="telephone" id="telephone" placeholder="phone number">
 	
 		<label id="privacy-policy">
 			<input type="checkbox" name="privacy-policy" required>
