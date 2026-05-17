@@ -1811,6 +1811,16 @@
 							& a#valentine.cs:hover::after, & a#valentine.cs.mobile-hover::after {
 								content: 'Malý projekt vytvořený speciálně na Valentýna :D. Můžete si ho stáhnout z mého GitHubu a použít k vykouzlení úsměvu na tváři svého partnera!';
 							}
+
+							/* matching game */
+
+							& a#matching:hover::after, & a#matching.mobile-hover::after {
+								content: 'This memory game project introduces a strategic variation of classic Pexeso, focused on risk management, information control, and tactical decisions rather than randomness.';
+							}
+
+							& a#matching.cs:hover::after, & a#matching.cs.mobile-hover::after {
+								content: 'Tento projekt představuje strategickou variantu klasického pexesa zaměřenou na práci s rizikem, správu informací a taktické rozhodování namísto náhody.';
+							}
 						}
 					}
 				}
