@@ -1821,6 +1821,16 @@
 							& a#matching.cs:hover::after, & a#matching.cs.mobile-hover::after {
 								content: 'Tento projekt představuje strategickou variantu klasického pexesa zaměřenou na práci s rizikem, správu informací a taktické rozhodování namísto náhody.';
 							}
+
+							/* doctor office */
+
+							& a#doctor-office:hover::after, & a#doctor-office.mobile-hover::after {
+								content: 'This medical website provides adult healthcare services, preventive care, vaccinations, ePrescriptions, appointment management, and patient information with accessible communication.';
+							}
+
+							& a#doctor-office.cs:hover::after, & a#doctor-office.cs.mobile-hover::after {
+								content: 'Tento zdravotnický web poskytuje péči pro dospělé, preventivní prohlídky, očkování, eRecepty, správu objednání a informace pro pacienty.';
+							}
 						}
 					}
 				}
